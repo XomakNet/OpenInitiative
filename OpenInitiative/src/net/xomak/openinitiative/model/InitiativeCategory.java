@@ -1,47 +1,43 @@
 /**
  * 
  */
-package net.xomak.openinitiative.models;
+package net.xomak.openinitiative.model;
 
 /**
- * Initiative's status
+ * Model of initiative's category
  * @author Konstantin Danilov
  *
  */
-public class Status {
+public class InitiativeCategory {
 
 	protected int id;
 	protected String name;
-	protected String description;
 	
-	public Status(int id, String name, String description) {
+	public InitiativeCategory(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.description = description;
 	}
-
+	
+	
 	/**
 	 * @return the id
 	 */
 	public int getId() {
 		return id;
 	}
-
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
-
 	/**
 	 * @param name the name to set
 	 */
@@ -49,20 +45,5 @@ public class Status {
 		this.name = name;
 	}
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	
-	
-
 }

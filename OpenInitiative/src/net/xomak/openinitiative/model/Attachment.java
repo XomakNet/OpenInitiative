@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.xomak.openinitiative.models;
+package net.xomak.openinitiative.model;
 
 /**
  * Attachment to ComplexText (some file, e.g. image)

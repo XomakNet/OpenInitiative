@@ -1,4 +1,4 @@
-package net.xomak.openinitiative.models;
+package net.xomak.openinitiative.model;
 
 /**
  * Something, that can have user comments

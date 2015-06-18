@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.xomak.openinitiative.models;
+package net.xomak.openinitiative.model;
 
 /**
  * Model of initiative
