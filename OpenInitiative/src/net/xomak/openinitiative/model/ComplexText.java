@@ -3,7 +3,7 @@
  */
 package net.xomak.openinitiative.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Model for complex text (with attachments and formatting).
@@ -12,10 +12,10 @@ import java.util.ArrayList;
  */
 public class ComplexText {
 
-	protected ArrayList<Attachment> attachments;
-	protected String text;
+	private List<Attachment> attachments;
+	private String text;
 	
-	public ComplexText(ArrayList<Attachment> attachments, String text) {
+	public ComplexText(List<Attachment> attachments, String text) {
 		super();
 		this.attachments = attachments;
 		this.text = text;
@@ -46,7 +46,7 @@ public class ComplexText {
 	/**
 	 * @return the attachments
 	 */
-	public ArrayList<Attachment> getAttachments() {
+	public List<Attachment> getAttachments() {
 		return attachments;
 	}
 }

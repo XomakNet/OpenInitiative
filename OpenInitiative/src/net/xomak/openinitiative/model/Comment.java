@@ -12,12 +12,10 @@ import java.util.Date;
  */
 public class Comment implements Commentable {
 	
-	protected int id;
-	protected ComplexText text;
-	protected Commentable reffersTo;
-	protected Date datetime;
-	public Comment() {
-	}
+	private int id;
+	private ComplexText text;
+	private Commentable reffersTo;
+	private Date datetime;
 	
 	public Comment(int id, ComplexText text, Commentable reffersTo,
 			Date datetime) {

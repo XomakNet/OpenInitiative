@@ -10,8 +10,8 @@ package net.xomak.openinitiative.model;
  */
 public class Attachment {
 
-	protected int id;
-	protected String serverPath;
+	private int id;
+	private String serverPath;
 	
 	public Attachment(int id, String serverPath) {
 		super();

@@ -10,10 +10,10 @@ package net.xomak.openinitiative.model;
  */
 public class User {
 
-	protected int id;
-	protected String login;
-	protected String email;
-	protected UserRole role;
+	private int id;
+	private String login;
+	private String email;
+	private UserRole role;
 	// TODO External auth module property
 	
 	

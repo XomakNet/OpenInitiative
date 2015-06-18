@@ -9,17 +9,17 @@ package net.xomak.openinitiative.model;
  */
 public class Initiative implements Commentable {
 
-	protected int id;
-	protected String name;
-	protected String description;
-	protected ComplexText text;
+	private int id;
+	private String name;
+	private String description;
+	private ComplexText text;
 	/**
 	 * Current status of the initiative
 	 */
-	protected Status status;
-	protected int votesNumber;
-	protected InitiativeCategory category;
-	protected User owner;
+	private Status status;
+	private int votesNumber;
+	private InitiativeCategory category;
+	private User owner;
 
 	public Initiative(int id, String name, String description,
 			ComplexText text, Status status, int votesNumber,

@@ -10,9 +10,9 @@ package net.xomak.openinitiative.model;
  */
 public class Status {
 
-	protected int id;
-	protected String name;
-	protected String description;
+	private int id;
+	private String name;
+	private String description;
 	
 	public Status(int id, String name, String description) {
 		super();

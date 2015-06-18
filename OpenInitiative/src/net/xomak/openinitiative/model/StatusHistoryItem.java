@@ -12,13 +12,13 @@ import java.util.Date;
  */
 public class StatusHistoryItem {
 
-	protected int id;
-	protected Status newStatus;
-	protected Date dateTime;
+	private int id;
+	private Status newStatus;
+	private Date dateTime;
 	/**
 	 * User's comment, linked with this change of status
 	 */
-	protected Comment comment;
+	private Comment comment;
 	
 	public StatusHistoryItem(int id, Status newStatus, Date dateTime,
 			Comment comment) {

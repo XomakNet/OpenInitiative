@@ -10,8 +10,8 @@ package net.xomak.openinitiative.model;
  */
 public class InitiativeCategory {
 
-	protected int id;
-	protected String name;
+	private int id;
+	private String name;
 	
 	public InitiativeCategory(int id, String name) {
 		super();

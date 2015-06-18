@@ -10,16 +10,16 @@ package net.xomak.openinitiative.model;
  */
 public class UserRole {
 
-	protected int id;
-	protected String name;
+	private int id;
+	private String name;
 	/**
-	 * Administrator of the system (can cganhe settings)
+	 * Administrator of the system (can change settings)
 	 */
-	protected boolean isAdministrator;
+	private boolean isAdministrator;
 	/**
 	 * Can respond to the initiative
 	 */
-	protected boolean isResponser;
+	private boolean isResponser;
 	
 	public UserRole(int id, String name, boolean isAdministrator,
 			boolean isResponser) {
