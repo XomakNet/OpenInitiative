@@ -16,6 +16,7 @@ public class Comment implements Commentable {
 	private ComplexText text;
 	private Commentable reffersTo;
 	private Date datetime;
+	private int votes;
 	
 	public Comment(int id, ComplexText text, Commentable reffersTo,
 			Date datetime) {
@@ -81,6 +82,21 @@ public class Comment implements Commentable {
 	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
 	}
+
+	/**
+	 * @return the votes
+	 */
+	public int getVotes() {
+		return votes;
+	}
+
+	/**
+	 * @param votes the votes to set
+	 */
+	public void setVotes(int votes) {
+		this.votes = votes;
+	}
+	
 	
 	
 
