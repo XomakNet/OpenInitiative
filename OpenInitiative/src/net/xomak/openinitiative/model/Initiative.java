@@ -17,7 +17,8 @@ public class Initiative implements Commentable {
 	 * Current status of the initiative
 	 */
 	private Status status;
-	private int votesNumber;
+	private int votesFor;
+	private int votesAgainst;
 	private InitiativeCategory category;
 	private User owner;
 
@@ -30,7 +31,7 @@ public class Initiative implements Commentable {
 		this.description = description;
 		this.text = text;
 		this.status = status;
-		this.votesNumber = votesNumber;
+		this.votesFor = votesNumber;
 		this.category = category;
 		this.owner = owner;
 	}
@@ -109,14 +110,14 @@ public class Initiative implements Commentable {
 	 * @return the votesNumber
 	 */
 	public int getVotesNumber() {
-		return votesNumber;
+		return votesFor;
 	}
 
 	/**
 	 * @param votesNumber the votesNumber to set
 	 */
 	public void setVotesNumber(int votesNumber) {
-		this.votesNumber = votesNumber;
+		this.votesFor = votesNumber;
 	}
 
 	/**
@@ -145,6 +146,20 @@ public class Initiative implements Commentable {
 	 */
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	/**
+	 * @return the votesAgainst
+	 */
+	public int getVotesAgainst() {
+		return votesAgainst;
+	}
+
+	/**
+	 * @param votesAgainst the votesAgainst to set
+	 */
+	public void setVotesAgainst(int votesAgainst) {
+		this.votesAgainst = votesAgainst;
 	}
 	
 	

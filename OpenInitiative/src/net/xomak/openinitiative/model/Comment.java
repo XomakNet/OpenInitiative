@@ -14,16 +14,23 @@ public class Comment implements Commentable {
 	
 	private int id;
 	private ComplexText text;
-	private Commentable reffersTo;
+	/**
+	 * Parent commentable object for this
+	 */
+	private Commentable parent;
+	/**
+	 * Root commentable object. (The top level of the tree)
+	 */
+	private Commentable root;
 	private Date datetime;
-	private int votes;
+	private int rating;
 	
 	public Comment(int id, ComplexText text, Commentable reffersTo,
 			Date datetime) {
 		super();
 		this.id = id;
 		this.text = text;
-		this.reffersTo = reffersTo;
+		this.parent = reffersTo;
 		this.datetime = datetime;
 	}
 
@@ -59,14 +66,14 @@ public class Comment implements Commentable {
 	 * @return the reffersTo
 	 */
 	public Commentable getReffersTo() {
-		return reffersTo;
+		return parent;
 	}
 
 	/**
 	 * @param reffersTo the reffersTo to set
 	 */
 	public void setReffersTo(Commentable reffersTo) {
-		this.reffersTo = reffersTo;
+		this.parent = reffersTo;
 	}
 
 	/**
@@ -87,14 +94,28 @@ public class Comment implements Commentable {
 	 * @return the votes
 	 */
 	public int getVotes() {
-		return votes;
+		return rating;
 	}
 
 	/**
 	 * @param votes the votes to set
 	 */
 	public void setVotes(int votes) {
-		this.votes = votes;
+		this.rating = votes;
+	}
+
+	/**
+	 * @return the root
+	 */
+	public Commentable getRoot() {
+		return root;
+	}
+
+	/**
+	 * @param root the root to set
+	 */
+	public void setRoot(Commentable root) {
+		this.root = root;
 	}
 	
 	
