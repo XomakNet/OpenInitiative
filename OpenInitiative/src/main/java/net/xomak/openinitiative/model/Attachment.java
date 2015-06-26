@@ -3,15 +3,26 @@
  */
 package net.xomak.openinitiative.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Attachment to ComplexText (some file, e.g. image)
  * @author Konstantin Danilov
  *
  */
+@Entity
 public class Attachment {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String serverPath;
+	
+	protected Attachment() {
+	}
 	
 	public Attachment(int id, String serverPath) {
 		super();
@@ -47,4 +58,13 @@ public class Attachment {
 		this.serverPath = serverPath;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Attachment [id=" + id + ", serverPath=" + serverPath + "]";
+	}
+
+	
 }
