@@ -25,10 +25,9 @@ public class Comment implements Commentable {
 	private Date datetime;
 	private int rating;
 	
-	public Comment(int id, ComplexText text, Commentable reffersTo,
+	public Comment(ComplexText text, Commentable reffersTo,
 			Date datetime) {
 		super();
-		this.id = id;
 		this.text = text;
 		this.parent = reffersTo;
 		this.datetime = datetime;

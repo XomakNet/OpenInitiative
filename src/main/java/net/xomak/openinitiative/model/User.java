@@ -15,11 +15,13 @@ public class User {
 	private String email;
 	private UserRole role;
 	// TODO External auth module property
+
+	protected User() {
+
+	}
 	
-	
-	public User(int id, String login, String email, UserRole role) {
+	public User(String login, String email, UserRole role) {
 		super();
-		this.id = id;
 		this.login = login;
 		this.email = email;
 		this.role = role;

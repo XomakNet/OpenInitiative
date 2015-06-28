@@ -13,10 +13,13 @@ public class Status {
 	private int id;
 	private String name;
 	private String description;
-	
-	public Status(int id, String name, String description) {
+
+	protected Status() {
+
+	}
+
+	public Status(String name, String description) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 	}

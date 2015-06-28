@@ -19,11 +19,14 @@ public class StatusHistoryItem {
 	 * User's comment, linked with this change of status
 	 */
 	private Comment comment;
-	
-	public StatusHistoryItem(int id, Status newStatus, Date dateTime,
+
+	protected StatusHistoryItem() {
+
+	}
+
+	public StatusHistoryItem(Status newStatus, Date dateTime,
 			Comment comment) {
 		super();
-		this.id = id;
 		this.newStatus = newStatus;
 		this.dateTime = dateTime;
 		this.comment = comment;

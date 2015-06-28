@@ -20,11 +20,14 @@ public class UserRole {
 	 * Can respond to the initiative
 	 */
 	private boolean isResponser;
-	
-	public UserRole(int id, String name, boolean isAdministrator,
+
+	protected UserRole() {
+		
+	}
+
+	public UserRole(String name, boolean isAdministrator,
 			boolean isResponser) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.isAdministrator = isAdministrator;
 		this.isResponser = isResponser;

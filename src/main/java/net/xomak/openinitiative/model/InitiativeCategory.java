@@ -12,10 +12,13 @@ public class InitiativeCategory {
 
 	private int id;
 	private String name;
-	
-	public InitiativeCategory(int id, String name) {
+
+	protected InitiativeCategory() {
+
+	}
+
+	public InitiativeCategory(String name) {
 		super();
-		this.id = id;
 		this.name = name;
 	}
 	

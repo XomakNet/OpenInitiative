@@ -22,11 +22,14 @@ public class Initiative implements Commentable {
 	private InitiativeCategory category;
 	private User owner;
 
-	public Initiative(int id, String name, String description,
+	protected Initiative() {
+
+	}
+
+	public Initiative(String name, String description,
 			ComplexText text, Status status, int votesNumber,
 			InitiativeCategory category, User owner) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.text = text;

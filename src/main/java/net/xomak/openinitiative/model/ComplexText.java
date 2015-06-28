@@ -14,7 +14,11 @@ public class ComplexText {
 
 	private List<Attachment> attachments;
 	private String text;
-	
+
+	protected ComplexText() {
+
+	}
+
 	public ComplexText(List<Attachment> attachments, String text) {
 		super();
 		this.attachments = attachments;
