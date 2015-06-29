@@ -3,13 +3,21 @@
  */
 package net.xomak.openinitiative.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * User's role model
  * @author Konstantin Danilov
  *
  */
+@Entity
 public class UserRole {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String name;
 	/**
@@ -22,7 +30,7 @@ public class UserRole {
 	private boolean isResponser;
 
 	protected UserRole() {
-		
+
 	}
 
 	public UserRole(String name, boolean isAdministrator,

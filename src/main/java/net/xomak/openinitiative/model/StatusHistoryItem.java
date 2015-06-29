@@ -3,6 +3,7 @@
  */
 package net.xomak.openinitiative.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -10,14 +11,21 @@ import java.util.Date;
  * @author Konstantin Danilov
  *
  */
+@Entity
 public class StatusHistoryItem {
 
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+	@ManyToOne
 	private Status newStatus;
+
 	private Date dateTime;
 	/**
 	 * User's comment, linked with this change of status
 	 */
+	@OneToOne
 	private Comment comment;
 
 	protected StatusHistoryItem() {
@@ -35,14 +43,14 @@ public class StatusHistoryItem {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

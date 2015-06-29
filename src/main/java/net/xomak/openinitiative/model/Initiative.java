@@ -3,24 +3,42 @@
  */
 package net.xomak.openinitiative.model;
 
+import javax.persistence.*;
+import java.util.Collection;
+
 /**
  * Model of initiative
  * @author Konstantin Danilov
  */
-public class Initiative implements Commentable {
+@Entity
+public class Initiative extends Commentable {
 
-	private int id;
-	private String name;
-	private String description;
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private ComplexText text;
+
 	/**
 	 * Current status of the initiative
 	 */
+	@OneToOne
 	private Status status;
+
+	@ManyToMany
+	private Collection<InitiativeCategory> categories;
+
+	@ManyToOne
+	private User owner;
+
+	@OneToMany
+	private Collection<StatusHistoryItem> statusHistory;
+
+	private String name;
+	private String description;
+
+
 	private int votesFor;
 	private int votesAgainst;
-	private InitiativeCategory category;
-	private User owner;
+
 
 	protected Initiative() {
 
@@ -28,29 +46,15 @@ public class Initiative implements Commentable {
 
 	public Initiative(String name, String description,
 			ComplexText text, Status status, int votesNumber,
-			InitiativeCategory category, User owner) {
+			Collection<InitiativeCategory> categories, User owner) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.text = text;
 		this.status = status;
 		this.votesFor = votesNumber;
-		this.category = category;
+		this.categories = categories;
 		this.owner = owner;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	/**
@@ -124,17 +128,17 @@ public class Initiative implements Commentable {
 	}
 
 	/**
-	 * @return the category
+	 * @return categories
 	 */
-	public InitiativeCategory getCategory() {
-		return category;
+	public Collection<InitiativeCategory> getCategories() {
+		return categories;
 	}
 
 	/**
-	 * @param category the category to set
+	 * @param categories the categories to set
 	 */
-	public void setCategory(InitiativeCategory category) {
-		this.category = category;
+	public void setCategories(Collection<InitiativeCategory> categories) {
+		this.categories = categories;
 	}
 
 	/**
@@ -164,7 +168,32 @@ public class Initiative implements Commentable {
 	public void setVotesAgainst(int votesAgainst) {
 		this.votesAgainst = votesAgainst;
 	}
-	
-	
 
+	/**
+	 * @return collection of statusHistoryItem
+	 */
+	public Collection<StatusHistoryItem> getStatusHistory() {
+		return statusHistory;
+	}
+
+	/*
+	 * @param statusHistory collection of statusHistoryItem
+	 */
+	public void setStatusHistory(Collection<StatusHistoryItem> statusHistory) {
+		this.statusHistory = statusHistory;
+	}
+
+	/**
+	 * @return votesFor number
+	 */
+	public int getVotesFor() {
+		return votesFor;
+	}
+
+	/**
+	 * @param votesFor votesFor value to set
+	 */
+	public void setVotesFor(int votesFor) {
+		this.votesFor = votesFor;
+	}
 }

@@ -3,14 +3,22 @@
  */
 package net.xomak.openinitiative.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Model of initiative's category
  * @author Konstantin Danilov
  *
  */
+@Entity
 public class InitiativeCategory {
 
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	private String name;
 
 	protected InitiativeCategory() {
@@ -26,13 +34,13 @@ public class InitiativeCategory {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	/**

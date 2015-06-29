@@ -3,16 +3,29 @@
  */
 package net.xomak.openinitiative.model;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Initiative's status
  * @author Konstantin Danilov
  *
  */
+@Entity
 public class Status {
 
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	private String name;
 	private String description;
+	private boolean isFinal;
+	private boolean isVotingActive;
+	private boolean isCommentable;
+	private boolean isSearchable;
 
 	protected Status() {
 
@@ -27,7 +40,7 @@ public class Status {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -65,7 +78,40 @@ public class Status {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public boolean isFinal() {
+		return isFinal;
+	}
+
+	public void setIsFinal(boolean isFinal) {
+		this.isFinal = isFinal;
+	}
+
+	public boolean isVotingActive() {
+		return isVotingActive;
+	}
+
+	public void setIsVotingActive(boolean isVotingActive) {
+		this.isVotingActive = isVotingActive;
+	}
+
+	public boolean isCommentable() {
+		return isCommentable;
+	}
+
+	public void setIsCommentable(boolean isCommentable) {
+		this.isCommentable = isCommentable;
+	}
+
+	public boolean isSearchable() {
+		return isSearchable;
+	}
+
+	public void setIsSearchable(boolean isSearchable) {
+		this.isSearchable = isSearchable;
+	}
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package net.xomak.openinitiative.model;
 
@@ -8,89 +8,93 @@ package net.xomak.openinitiative.model;
  * @author Konstantin Danilov
  *
  */
+
+import javax.persistence.*;
+
+@Entity
 public class User {
 
-	private int id;
-	private String login;
-	private String email;
-	private UserRole role;
-	// TODO External auth module property
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String login;
+    private String email;
+    @ManyToOne
+    private UserRole role;
+    // TODO External auth module property
 
-	protected User() {
+    protected User() {
 
-	}
-	
-	public User(String login, String email, UserRole role) {
-		super();
-		this.login = login;
-		this.email = email;
-		this.role = role;
-	}
+    }
 
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+    public User(String login, String email, UserRole role) {
+        super();
+        this.login = login;
+        this.email = email;
+        this.role = role;
+    }
 
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
 
 
-	/**
-	 * @return the login
-	 */
-	public String getLogin() {
-		return login;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
 
 
-	/**
-	 * @param login the login to set
-	 */
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
 
 
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
 
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
 
-	/**
-	 * @return the role
-	 */
-	public UserRole getRole() {
-		return role;
-	}
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 
-	/**
-	 * @param role the role to set
-	 */
-	public void setRole(UserRole role) {
-		this.role = role;
-	}
-	
-	
+    /**
+     * @return the role
+     */
+    public UserRole getRole() {
+        return role;
+    }
 
+
+    /**
+     * @param role the role to set
+     */
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
 }

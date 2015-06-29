@@ -1,8 +1,8 @@
 package net.xomak.openinitiative.controller;
 
 
-import net.xomak.openinitiative.model.Attachment;
-import net.xomak.openinitiative.repository.AttachmentRepository;
+import net.xomak.openinitiative.model.*;
+import net.xomak.openinitiative.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,20 +12,32 @@ import org.springframework.web.servlet.ModelAndView;
 public class HelloController {
 
     @Autowired
-    AttachmentRepository repository;
+    AttachmentRepository attachmentRepository;
+
+    @Autowired
+    InitiativeCategoryRepository initiativeCategoryRepository;
+
+    @Autowired
+    InitiativeRepository initiativeRepository;
+
+    @Autowired
+    StatusRepository statusRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @RequestMapping("/hello")
     public ModelAndView hello() {
 
-        System.out.println("HelloController");
-        Attachment test = new Attachment("test2");
-        repository.save(test);
+        ComplexText testText = new ComplexText("Complex text text text");
+        User user = userRepository.findOne(1L);
+
+        Status status = statusRepository.findOne(1L);
+        Initiative test = new Initiative("Test initiative", "Test description", testText, status, 0, null, user);
+
+        initiativeRepository.save(test);
 
         String output = "";
-
-        for (Attachment attachment : repository.findAll()) {
-            output += attachment;
-        }
 
         ModelAndView model = new ModelAndView();
         model.setViewName("hello");

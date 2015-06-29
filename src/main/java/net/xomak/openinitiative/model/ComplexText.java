@@ -3,26 +3,53 @@
  */
 package net.xomak.openinitiative.model;
 
-import java.util.List;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Model for complex text (with attachments and formatting).
  * @author Konstantin Danilov
  *
  */
+@Entity
 public class ComplexText {
 
-	private List<Attachment> attachments;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private Collection<Attachment> attachments;
+
 	private String text;
 
 	protected ComplexText() {
 
 	}
 
-	public ComplexText(List<Attachment> attachments, String text) {
+	public ComplexText(String text) {
+		super();
+		this.text = text;
+	}
+
+	public ComplexText(String text, Collection<Attachment> attachments) {
 		super();
 		this.attachments = attachments;
 		this.text = text;
+	}
+
+	/**
+	 * @return id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	/**
@@ -50,7 +77,14 @@ public class ComplexText {
 	/**
 	 * @return the attachments
 	 */
-	public List<Attachment> getAttachments() {
+	public Collection<Attachment> getAttachments() {
 		return attachments;
+	}
+
+	/**
+	 * @param attachments to set
+	 */
+	public void setAttachments(Collection<Attachment> attachments) {
+		this.attachments = attachments;
 	}
 }

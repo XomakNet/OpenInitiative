@@ -18,7 +18,7 @@ public class Attachment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	private String serverPath;
 
@@ -29,18 +29,18 @@ public class Attachment {
 		super();
 		this.serverPath = serverPath;
 	}
-	
+
 	/**
-	 * @return the id
+	 * @return id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id to set id
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

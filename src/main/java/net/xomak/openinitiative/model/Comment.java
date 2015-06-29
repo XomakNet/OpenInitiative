@@ -3,6 +3,7 @@
  */
 package net.xomak.openinitiative.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -10,42 +11,42 @@ import java.util.Date;
  * @author Konstantin Danilov
  *
  */
-public class Comment implements Commentable {
-	
-	private int id;
+@Entity
+public class Comment extends Commentable {
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private ComplexText text;
+
 	/**
 	 * Parent commentable object for this
 	 */
+	@ManyToOne
 	private Commentable parent;
+
 	/**
 	 * Root commentable object. (The top level of the tree)
 	 */
+	@ManyToOne
 	private Commentable root;
+
 	private Date datetime;
 	private int rating;
-	
-	public Comment(ComplexText text, Commentable reffersTo,
-			Date datetime) {
-		super();
+
+	@ManyToOne
+	private User owner;
+
+	public Comment(ComplexText text, Commentable parent, Commentable root, Date datetime, int rating) {
 		this.text = text;
-		this.parent = reffersTo;
+		this.parent = parent;
+		this.root = root;
 		this.datetime = datetime;
+		this.rating = rating;
 	}
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
+	protected Comment() {
+
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the text
@@ -116,8 +117,32 @@ public class Comment implements Commentable {
 	public void setRoot(Commentable root) {
 		this.root = root;
 	}
-	
-	
-	
 
+	/**
+	 * @return parent
+	 */
+	public Commentable getParent() {
+		return parent;
+	}
+
+	/**
+	 * @param parent to set
+	 */
+	public void setParent(Commentable parent) {
+		this.parent = parent;
+	}
+
+	/**
+	 * @return rating
+	 */
+	public int getRating() {
+		return rating;
+	}
+
+	/**
+	 * @param rating to set
+	 */
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 }
