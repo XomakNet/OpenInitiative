@@ -13,7 +13,7 @@
         http://www.springframework.org/schema/data/jpa
         http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd">
 
-    <context:component-scan base-package="net.xomak.openinitiative.controller"/>
+    <context:component-scan base-package="net.xomak.openinitiative"/>
 
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
         <!--<property name="prefix">-->
@@ -64,7 +64,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 
     <mvc:annotation-driven />
     <jpa:repositories base-package="net.xomak.openinitiative.repository"/>

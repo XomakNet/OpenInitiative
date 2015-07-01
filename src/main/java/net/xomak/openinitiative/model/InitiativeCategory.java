@@ -56,5 +56,11 @@ public class InitiativeCategory {
 		this.name = name;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "InitiativeCategory{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				'}';
+	}
 }

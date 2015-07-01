@@ -7,18 +7,21 @@
         <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" media="screen" />
         <script src="http://code.jquery.com/jquery-latest.js"><!-- --></script>
         <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"><!-- --></script>
+        <style type="text/css">
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
     </head>
     <body>
 
+        <tiles:insertAttribute name="header" />
+        <div class="container-fluid">
 
-        <div class="container">
-
-          <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-          </div>
+              <tiles:insertAttribute name="body" />
 
         </div><!-- /.container -->
-        <tiles:insertAttribute name="body" />
+
     </body>
 </html>
