@@ -64,9 +64,17 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="net.xomak.openinitiative.converter.StringToInitiativeCategory"/>
+            </set>
+        </property>
+    </bean>
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
     <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven conversion-service="conversionService"/>
     <jpa:repositories base-package="net.xomak.openinitiative.repository"/>
 
 </beans>

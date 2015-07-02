@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InitiativeCategoryRepository extends CrudRepository<InitiativeCategory, Long> {
-
+    public Iterable<InitiativeCategory> findByIsActive(boolean isActive);
 }

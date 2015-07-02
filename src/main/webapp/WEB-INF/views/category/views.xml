@@ -8,4 +8,7 @@
     <definition extends="default" name="category/form">
         <put-attribute name="body" value="/WEB-INF/views/category/form.jsp" />
     </definition>
+    <definition extends="default" name="category/deleteAction">
+        <put-attribute name="body" value="/WEB-INF/views/category/deleteAction.jsp" />
+    </definition>
 </tiles-definitions>

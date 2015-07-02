@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/category")
@@ -34,8 +35,16 @@ public class CategoryController {
 
     @RequestMapping("/{id}/delete")
     public String categoryDelete(@PathVariable("id") long id, Model model) {
-        service.deleteCategoryById(id);
-        return "redirect:/category/";
+        InitiativeCategory category = service.getCategoryById(id);
+        long initiativesInCategory = service.countInitiativesByCategory(category);
+        if(initiativesInCategory != 0) {
+            return "category/deleteAction";
+        }
+        else {
+            service.deleteCategoryById(id);
+            return "redirect:/category/";
+        }
+
     }
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
@@ -46,13 +55,18 @@ public class CategoryController {
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String categoryCreate(Model model) {
-        model.addAttribute("category", new InitiativeCategory(""));
+        model.addAttribute("category", new InitiativeCategory("", "", true));
         return "category/form";
     }
 
     @RequestMapping(value = {"/{id}/edit", "/new"}, method = RequestMethod.POST)
-    public String categorySave(@ModelAttribute("category") InitiativeCategory category, BindingResult br, Model model) {
-        service.saveCategory(category);
-        return "redirect:/category/";
+    public String categorySave(@Valid @ModelAttribute("category") InitiativeCategory category, BindingResult br, Model model) {
+        if(br.hasErrors()) {
+            return "category/form";
+        }
+        else {
+            service.saveCategory(category);
+            return "redirect:/category/";
+        }
     }
 }

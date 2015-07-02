@@ -1,5 +1,6 @@
 package net.xomak.openinitiative.service;
 
+import net.xomak.openinitiative.model.Initiative;
 import net.xomak.openinitiative.model.InitiativeCategory;
 import net.xomak.openinitiative.repository.InitiativeCategoryRepository;
 import net.xomak.openinitiative.repository.InitiativeRepository;
@@ -7,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
- * Created by Костя on 01.07.2015.
+ * Created by пїЅпїЅпїЅпїЅпїЅ on 01.07.2015.
  */
 @Service
 public class InitiativeService {
+
     @Autowired
     InitiativeRepository initiatives;
 
@@ -21,6 +24,10 @@ public class InitiativeService {
 
     public Iterable<InitiativeCategory> getAllCategories() {
         return categories.findAll();
+    }
+
+    public Iterable<InitiativeCategory> getActiveCategories() {
+        return categories.findByIsActive(true);
     }
 
     public InitiativeCategory getCategoryById(long id) {
@@ -37,5 +44,10 @@ public class InitiativeService {
 
     public void deleteCategoryById(long categoryId) {
         categories.delete(categoryId);
+    }
+
+    public long countInitiativesByCategory(InitiativeCategory category)
+    {
+        return initiatives.countByCategories(category);
     }
 }
