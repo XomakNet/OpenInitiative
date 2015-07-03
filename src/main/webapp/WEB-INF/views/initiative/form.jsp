@@ -8,47 +8,84 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<h1>
-            Новая инициатива
-</h1>
-${initiative}
+<style>
+    .error-row{padding-left: 15px; padding-right: 15px; margin-top: 15px;}
+    .fulltext-row{padding-left: 15px; padding-right: 15px; }
+</style>
 <div class="container">
-    <form:form modelAttribute="initiative" action="" id="initiativeForm" method="post">
+    <h1>
+        Новая инициатива
+    </h1>
+    ${initiative}
+    <form:form modelAttribute="initiative" action="" id="initiativeForm" method="post" cssClass="form-horizontal">
         <div class="row">
-            <form:label path="name">
-                Название
-            </form:label>
-            <form:input path="name"/>
-            <form:errors path="name" cssClass="alert alert-danger"/>
+            <div class="col-lg-2 col-md-2">
+                <form:label path="name" cssClass="control-label">
+                    Название
+                </form:label>
+            </div>
+            <div class="col-lg-10 col-md-10">
+                <form:input path="name" cssClass="form-control" placeholder="Название инициативы"/>
+            </div>
+        </div>
+        <div class="row error-row">
+            <form:errors path="name" cssClass="alert alert-danger" element="div"/>
         </div>
         <div class="row">
-            <form:label path="description">
-                Краткое описание
-            </form:label>
+            <div class="col-lg-2 col-md-2">
+                <form:label path="description" cssClass="control-label">
+                    Краткое описание
+                </form:label>
+            </div>
+            <div class="col-lg-10 col-md-10">
+                <form:textarea path="description" cssClass="form-control" placeholder="Краткое описание инициативы для отображения в поиске"/>
+            </div>
+        </div>
+        <div class="row error-row">
+            <form:errors path="description" cssClass="alert alert-danger" element="div"/>
         </div>
         <div class="row">
-            <form:textarea path="description" rows="10" cols="20"/>
-            <form:errors path="description" cssClass="alert alert-danger"/>
+            <div class="col-lg-2 col-md-2">
+                <form:label path="categories" cssClass="control-label">
+                    Категории
+                </form:label>
+            </div>
+            <div class="col-lg-10 col-md-10">
+                <form:select path="categories" items="${categories}" itemValue="id" itemLabel="name" cssClass="form-control" id="categorySelect"/>
+            </div>
+        </div>
+        <div class="row error-row">
+            <form:errors path="categories" cssClass="alert alert-danger" element="div"/>
         </div>
         <div class="row">
-            <form:label path="text">
-                Полный текст инициативы
-            </form:label>
+            <div class="col-lg-4 col-md-4">
+                <form:label path="text" cssClass="control-label">
+                    Полный текст инициативы
+                </form:label>
+            </div>
+            <div class="col-lg-8 col-md-8">
+                <form:errors path="text" cssClass="alert alert-danger" element="div"/>
+            </div>
         </div>
-        <div class="row">
-            <form:textarea path="text" rows="50" cols="190"/>
-            <form:errors path="text" cssClass="alert alert-danger"/>
+        <div class="row fulltext-row">
+            <form:textarea path="text" cssClass="form-control" id="initiativeText"/>
         </div>
-        <div class="row">
-            <form:label path="categories">
-                Категории
-            </form:label>
-            <form:select path="categories" items="${categories}" itemValue="id" itemLabel="name"/>
-            <form:errors path="categories" cssClass="alert alert-danger"/>
-        </div>
-        <div class="row">
-            <input type="submit" class="btn btn-success" value="Создать"/>
+
+        <div class="row text-center top-margin15 side-padding">
+            <input type="submit" class="btn btn-success btn-lg fullwidth" value="Создать"/>
         </div>
     </form:form>
 </div>
+<%--TODO: Do it it right way--%>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#categorySelect').multiselect();
+    });
 
+</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "#initiativeText"
+    });
+</script>
