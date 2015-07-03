@@ -16,11 +16,11 @@
     <body>
 
         <tiles:insertAttribute name="header" />
-        <div class="container-fluid">
+        <%--<div class="container-fluid">--%>
 
               <tiles:insertAttribute name="body" />
 
-        </div><!-- /.container -->
+        <%--</div>--%>
 
     </body>
 </html>

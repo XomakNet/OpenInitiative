@@ -21,7 +21,7 @@ public class User {
     private String email;
     @ManyToOne
     private UserRole role;
-    // TODO External auth module property
+    protected String passwordHash;
 
     protected User() {
 
@@ -96,5 +96,13 @@ public class User {
      */
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }

@@ -3,8 +3,10 @@ package net.xomak.openinitiative.controller;
 
 import net.xomak.openinitiative.model.Initiative;
 import net.xomak.openinitiative.model.InitiativeCategory;
+import net.xomak.openinitiative.model.User;
 import net.xomak.openinitiative.model.form.NewInitiative;
 import net.xomak.openinitiative.service.InitiativeService;
+import net.xomak.openinitiative.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,14 @@ public class InitiativeController {
 
     @Autowired
     InitiativeService service;
+
+    @Autowired
+    UserService userService;
+
+    @ModelAttribute("user")
+    public User getUser() {
+        return userService.getCurrentUser();
+    }
 
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)

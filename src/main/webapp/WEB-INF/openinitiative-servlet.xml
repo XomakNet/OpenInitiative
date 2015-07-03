@@ -71,6 +71,11 @@
             </set>
         </property>
     </bean>
+
+    <mvc:interceptors>
+        <bean class="net.xomak.openinitiative.interceptor.SessionInterceptor" />
+    </mvc:interceptors>
+
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
     <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 
