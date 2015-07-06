@@ -2,10 +2,7 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
     <!-- Default Main Template -->
-    <definition extends="default" name="user/auth">
-        <put-attribute name="body" value="/WEB-INF/views/user/auth.jsp" />
-    </definition>
-    <definition extends="default" name="user/new">
-        <put-attribute name="body" value="/WEB-INF/views/user/new.jsp" />
+    <definition extends="default" name="blocks/messagePanel">
+        <put-attribute name="body" value="/WEB-INF/views/blocks/messagePanel.jsp" />
     </definition>
 </tiles-definitions>

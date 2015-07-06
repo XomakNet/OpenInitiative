@@ -14,7 +14,7 @@ public class SessionHolder {
         return sessions.get();
     }
 
-    public void putSession(HttpSession session) {
+    public void putSession(final HttpSession session) {
         sessions.set(session);
     }
 }

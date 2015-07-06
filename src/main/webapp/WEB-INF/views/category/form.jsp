@@ -8,18 +8,20 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<h1>
-    <c:choose>
-        <c:when test="${category.id > 0}">
-            Редактирование категории
-        </c:when>
-        <c:otherwise>
-            Новая категория
-        </c:otherwise>
-    </c:choose>
-</h1>
+
+
 
 <div class="container">
+    <h1>
+        <c:choose>
+            <c:when test="${category.id > 0}">
+                Редактирование категории
+            </c:when>
+            <c:otherwise>
+                Новая категория
+            </c:otherwise>
+        </c:choose>
+    </h1>
     <form:form modelAttribute="category" action="" id="categoryForm" method="post">
         <div class="row">
             <form:label path="name">

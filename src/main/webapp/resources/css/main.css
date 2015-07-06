@@ -5,3 +5,11 @@ body {
 .top-margin15{margin-top: 15px;}
 .side-padding{padding-left: 15px; padding-right: 15px;}
 .fullwidth{width:100%;}
+.no-bottom-radius{
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.no-top-radius {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}

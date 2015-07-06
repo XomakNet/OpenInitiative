@@ -1,4 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%--
   Created by IntelliJ IDEA.
   User: Костя
@@ -11,6 +13,7 @@
     .authForm {
         max-width: 500px;
     }
+    /*TODO: Change this to class no-bottom-round, top*/
     .authForm input[type="text"] {
         margin-bottom: -1px;
         border-bottom-right-radius: 0;
@@ -24,14 +27,17 @@
 </style>
 <div class="container authForm">
     <h2>Авторизация</h2>
-    <div class="panel panel-danger">
-        <div class="panel-heading">
-            <h3 class="panel-title">Авторизация не удалась</h3>
+    <c:if test="${message != null}">
+        <div class="panel ${message.cssClass}">
+            <div class="panel-heading">
+                <h3 class="panel-title">${message.title}</h3>
+            </div>
+            <div class="panel-body">
+                    ${message.message}
+            </div>
         </div>
-        <div class="panel-body">
-            Вы ввели неправильный логин или пароль.
-        </div>
-    </div>
+    </c:if>
+
     <form:form modelAttribute="authFormData" action="" id="initiativeForm" method="post" cssClass="form-horizontal">
 
         <form:label path="login" cssClass="sr-only">Название</form:label>

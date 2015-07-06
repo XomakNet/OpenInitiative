@@ -3,14 +3,14 @@ package net.xomak.openinitiative.model.form;
 /**
  * Created by Костя on 03.07.2015.
  */
-public class AuthFormData {
+public class AuthForm {
     String login;
     String password;
 
-    public AuthFormData() {
+    public AuthForm() {
     }
 
-    public AuthFormData(String login, String password) {
+    public AuthForm(String login, String password) {
         this.login = login;
         this.password = password;
     }

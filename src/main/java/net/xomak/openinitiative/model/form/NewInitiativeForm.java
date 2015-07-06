@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * Created by Костя on 02.07.2015.
  */
-public class NewInitiative {
+public class NewInitiativeForm {
     @Size(min = 200, message = "Содержание инициативы должно содержать не менее 200 символов")
     private String text;
 
@@ -54,7 +54,7 @@ public class NewInitiative {
 
     @Override
     public String toString() {
-        return "NewInitiative{" +
+        return "NewInitiativeForm{" +
                 "text='" + text + '\'' +
                 ", categories=" + categories +
                 ", name='" + name + '\'' +

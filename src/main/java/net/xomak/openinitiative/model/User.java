@@ -21,19 +21,25 @@ public class User {
     private String email;
     @ManyToOne
     private UserRole role;
-    protected String passwordHash;
+    private String passwordHash;
 
     protected User() {
 
     }
 
-    public User(String login, String email, UserRole role) {
-        super();
+    /**
+     * Creates user
+     * @param login
+     * @param email
+     * @param role
+     * @param passwordHash
+     */
+    public User(final String login, final String email, final UserRole role, final String passwordHash) {
         this.login = login;
         this.email = email;
         this.role = role;
+        this.passwordHash = passwordHash;
     }
-
 
     /**
      * @return the id
