@@ -21,6 +21,8 @@ public class ComplexText {
 	@OneToMany(cascade = CascadeType.ALL)
 	private Collection<Attachment> attachments;
 
+	@Lob
+	@Column(length = 65535)
 	private String text;
 
 	protected ComplexText() {

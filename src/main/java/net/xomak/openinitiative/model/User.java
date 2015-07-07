@@ -19,7 +19,7 @@ public class User {
     private long id;
     private String login;
     private String email;
-    @ManyToOne
+    @ManyToOne(optional = false)
     private UserRole role;
     private String passwordHash;
 

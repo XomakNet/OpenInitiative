@@ -3,15 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.2.xsd
         http://www.springframework.org/schema/data/jpa
-        http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd">
+        http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:component-scan base-package="net.xomak.openinitiative"/>
 
@@ -46,14 +46,20 @@
 
     <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
         <property name="packagesToScan" value="net.xomak.openinitiative.model"></property>
+
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>
 
         <property name="jpaProperties">
             <props>
-                <!--<prop key="hibernate.hbm2ddl.auto">create-drop</prop>-->
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                <prop key="hibernate.hbm2ddl.import_files">import.sql</prop>
+                <prop key="hibernate.connection.characterEncoding">utf8</prop>
+                <prop key="hibernate.connection.CharSet">utf8</prop>
+                <prop key="hibernate.connection.useUnicode">true</prop>
+                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
             </props>
         </property>
@@ -80,6 +86,27 @@
     <mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 
     <mvc:annotation-driven conversion-service="conversionService"/>
+    <tx:annotation-driven/>
     <jpa:repositories base-package="net.xomak.openinitiative.repository"/>
+
+    <!--<bean class="org.springframework.jdbc.datasource.init.DataSourceInitializer"-->
+          <!--depends-on="entityManagerFactory">-->
+        <!--<property name="databasePopulator" ref="resourceDatabasePopulator"/>-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+    <!--<bean id="resourceDatabasePopulator"-->
+          <!--class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">-->
+        <!--<property name="sqlScriptEncoding" value="UTF-8"/>-->
+        <!--<property name="scripts">-->
+            <!--<array>-->
+                <!--&lt;!&ndash;<value>classpath*:db/${jdbc.initLocation}</value>&ndash;&gt;-->
+                <!--<value>/WEB-INF/import.sql</value>-->
+            <!--</array>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<jdbc:initialize-database data-source="dataSource">-->
+        <!--<jdbc:script location="/WEB-INF/import.sql" encoding="UTF-8" />-->
+    <!--</jdbc:initialize-database>-->
 
 </beans>

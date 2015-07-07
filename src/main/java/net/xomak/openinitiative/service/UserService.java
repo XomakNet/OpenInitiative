@@ -8,6 +8,8 @@ import net.xomak.openinitiative.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -64,6 +66,7 @@ public class UserService {
         else return null;
     }
 
+    @Transactional
     public void createUser(String name, String email, String password) throws InternalErrorException {
         UserRole role = roleRepository.findById(DEFAULT_ROLE_ID);
         User newUser = new User(name, email, role, this.hashPassword(password));
@@ -75,5 +78,11 @@ public class UserService {
             return true;
         }
         else return false;
+    }
+
+    @PostConstruct
+    private void createDefaultRole() {
+        UserRole role = new UserRole("Пользователь", false, false);
+        roleRepository.save(role);
     }
 }

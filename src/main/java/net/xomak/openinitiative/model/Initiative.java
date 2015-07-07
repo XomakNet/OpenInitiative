@@ -4,6 +4,7 @@
 package net.xomak.openinitiative.model;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 /**
@@ -15,7 +16,7 @@ public class Initiative extends Commentable {
 
 
 	@OneToOne(cascade = CascadeType.ALL)
-	private ComplexText text;
+	private ComplexText complexText;
 
 	/**
 	 * Current status of the initiative
@@ -29,7 +30,7 @@ public class Initiative extends Commentable {
 	@ManyToOne
 	private User owner;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private Collection<StatusHistoryItem> statusHistory;
 
 	private String name;
@@ -44,17 +45,28 @@ public class Initiative extends Commentable {
 
 	}
 
-	public Initiative(String name, String description,
-			ComplexText text, Status status, int votesNumber,
-			Collection<InitiativeCategory> categories, User owner) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.text = text;
+	/**
+	 *
+	 * @param name
+	 * @param description
+	 * @param complexText
+	 * @param status
+	 * @param categories
+	 * @param owner
+	 * @param votesFor
+	 * @param votesAgainst
+	 * @param statusHistory
+	 */
+	public Initiative(final String name, final String description, final ComplexText complexText, final Status status, final Collection<InitiativeCategory> categories, final User owner, final int votesFor, final int votesAgainst, final Collection<StatusHistoryItem> statusHistory) {
+		this.complexText = complexText;
 		this.status = status;
-		this.votesFor = votesNumber;
 		this.categories = categories;
 		this.owner = owner;
+		this.statusHistory = statusHistory;
+		this.name = name;
+		this.description = description;
+		this.votesFor = votesFor;
+		this.votesAgainst = votesAgainst;
 	}
 
 	/**
@@ -86,17 +98,17 @@ public class Initiative extends Commentable {
 	}
 
 	/**
-	 * @return the text
+	 * @return the complexText
 	 */
-	public ComplexText getText() {
-		return text;
+	public ComplexText getComplexText() {
+		return complexText;
 	}
 
 	/**
-	 * @param text the text to set
+	 * @param complexText the complexText to set
 	 */
-	public void setText(ComplexText text) {
-		this.text = text;
+	public void setComplexText(ComplexText complexText) {
+		this.complexText = complexText;
 	}
 
 	/**
@@ -179,7 +191,7 @@ public class Initiative extends Commentable {
 	/*
 	 * @param statusHistory collection of statusHistoryItem
 	 */
-	public void setStatusHistory(Collection<StatusHistoryItem> statusHistory) {
+	public void setStatusHistory(final Collection<StatusHistoryItem> statusHistory) {
 		this.statusHistory = statusHistory;
 	}
 
@@ -196,4 +208,6 @@ public class Initiative extends Commentable {
 	public void setVotesFor(int votesFor) {
 		this.votesFor = votesFor;
 	}
+
+
 }

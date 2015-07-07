@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+
 public interface CommentRepository extends CrudRepository<Comment, Long> {
     /**
      * Find comments by comments' root (e.g. find all initiative's comments)

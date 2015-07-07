@@ -15,7 +15,7 @@ public class BaseController  {
     protected UserService userService;
 
     @ModelAttribute("user")
-    public User getUser() {
+    public User getCurrentUser() {
         return userService.getCurrentUser();
     }
 }

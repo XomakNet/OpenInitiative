@@ -5,4 +5,7 @@
     <definition extends="default" name="initiative/form">
         <put-attribute name="body" value="/WEB-INF/views/initiative/form.jsp" />
     </definition>
+    <definition extends="default" name="initiative/detailedView">
+        <put-attribute name="body" value="/WEB-INF/views/initiative/detailedView.jsp" />
+    </definition>
 </tiles-definitions>

@@ -18,14 +18,14 @@ public class StatusHistoryItem {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Status newStatus;
 
 	private Date dateTime;
 	/**
 	 * User's comment, linked with this change of status
 	 */
-	@OneToOne
+	@OneToOne(optional = true)
 	private Comment comment;
 
 	protected StatusHistoryItem() {

@@ -77,14 +77,14 @@
     </form:form>
 </div>
 <%--TODO: Do it it right way--%>
-<script type="text/javascript">
+<script type="complexText/javascript">
     $(document).ready(function() {
         $('#categorySelect').multiselect();
     });
 
 </script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tinymce/tinymce.min.js"></script>
-<script type="text/javascript">
+<script type="complexText/javascript" src="${pageContext.request.contextPath}/resources/js/tinymce/tinymce.min.js"></script>
+<script type="complexText/javascript">
     tinymce.init({
         selector: "#initiativeText"
     });
