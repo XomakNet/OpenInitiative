@@ -9,6 +9,12 @@ public class GenericMessage {
     private String message;
     private MessageType type;
 
+    public GenericMessage() {
+        this.title = "";
+        this.message = "";
+        this.type = MessageType.INFO;
+    }
+
     public GenericMessage(String title, String message, MessageType type) {
         this.title = title;
         this.message = message;

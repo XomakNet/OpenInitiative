@@ -27,6 +27,7 @@
 </style>
 <div class="container authForm">
     <h2>Авторизация</h2>
+    ${messageTest}
     <c:if test="${message != null}">
         <div class="panel ${message.cssClass}">
             <div class="panel-heading">
@@ -44,6 +45,7 @@
         <form:input path="login" cssClass="form-control input-lg" placeholder="Логин"/>
         <form:label path="password" cssClass="sr-only">Пароль</form:label>
         <form:password path="password" cssClass="form-control input-lg" placeholder="Пароль"/>
+        <form:hidden path="returnURL"/>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
     </form:form>
 

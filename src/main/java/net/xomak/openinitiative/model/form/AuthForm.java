@@ -6,6 +6,9 @@ package net.xomak.openinitiative.model.form;
 public class AuthForm {
     String login;
     String password;
+    String returnURL;
+
+
 
     public AuthForm() {
     }
@@ -29,5 +32,13 @@ public class AuthForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getReturnURL() {
+        return returnURL;
+    }
+
+    public void setReturnURL(final String returnURL) {
+        this.returnURL = returnURL;
     }
 }

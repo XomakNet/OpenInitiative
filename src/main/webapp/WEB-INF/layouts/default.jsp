@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" type="text/css"/>
 
 
-        <script type="complexText/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap-multiselect.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap-multiselect.js"></script>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-multiselect.css" type="text/css"/>
     </head>
     <body>

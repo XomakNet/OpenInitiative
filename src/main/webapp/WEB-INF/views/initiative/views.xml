@@ -8,4 +8,7 @@
     <definition extends="default" name="initiative/detailedView">
         <put-attribute name="body" value="/WEB-INF/views/initiative/detailedView.jsp" />
     </definition>
+    <definition extends="default" name="initiative/list">
+        <put-attribute name="body" value="/WEB-INF/views/initiative/list.jsp" />
+    </definition>
 </tiles-definitions>

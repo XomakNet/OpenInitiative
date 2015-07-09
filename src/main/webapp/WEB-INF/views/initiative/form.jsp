@@ -16,7 +16,6 @@
     <h1>
         Новая инициатива
     </h1>
-    ${initiative}
     <form:form modelAttribute="initiative" action="" id="initiativeForm" method="post" cssClass="form-horizontal">
         <div class="row">
             <div class="col-lg-2 col-md-2">
@@ -77,14 +76,14 @@
     </form:form>
 </div>
 <%--TODO: Do it it right way--%>
-<script type="complexText/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
         $('#categorySelect').multiselect();
     });
 
 </script>
-<script type="complexText/javascript" src="${pageContext.request.contextPath}/resources/js/tinymce/tinymce.min.js"></script>
-<script type="complexText/javascript">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
     tinymce.init({
         selector: "#initiativeText"
     });

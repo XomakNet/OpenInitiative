@@ -31,6 +31,24 @@ public class Status {
 
 	}
 
+	/**
+	 *
+	 * @param name
+	 * @param description
+	 * @param isFinal
+	 * @param isVotingActive
+	 * @param isCommentable
+	 * @param isSearchable
+	 */
+	public Status(final String name, final String description, final boolean isFinal, final boolean isVotingActive, final boolean isCommentable, final boolean isSearchable) {
+		this.name = name;
+		this.description = description;
+		this.isFinal = isFinal;
+		this.isVotingActive = isVotingActive;
+		this.isCommentable = isCommentable;
+		this.isSearchable = isSearchable;
+	}
+
 	public Status(String name, String description) {
 		super();
 		this.name = name;
@@ -83,7 +101,7 @@ public class Status {
 		this.id = id;
 	}
 
-	public boolean isFinal() {
+	public boolean getIsFinal() {
 		return isFinal;
 	}
 
@@ -91,7 +109,7 @@ public class Status {
 		this.isFinal = isFinal;
 	}
 
-	public boolean isVotingActive() {
+	public boolean getIsVotingActive() {
 		return isVotingActive;
 	}
 
@@ -99,7 +117,7 @@ public class Status {
 		this.isVotingActive = isVotingActive;
 	}
 
-	public boolean isCommentable() {
+	public boolean getIsCommentable() {
 		return isCommentable;
 	}
 
@@ -107,7 +125,7 @@ public class Status {
 		this.isCommentable = isCommentable;
 	}
 
-	public boolean isSearchable() {
+	public boolean getIsSearchable() {
 		return isSearchable;
 	}
 

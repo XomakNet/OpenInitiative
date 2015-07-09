@@ -34,6 +34,7 @@ public class Initiative extends Commentable {
 	private Collection<StatusHistoryItem> statusHistory;
 
 	private String name;
+	@Column(length = 300)
 	private String description;
 
 

@@ -5,5 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 public interface StatusRepository extends CrudRepository<Status, Long>{
-    public Status findById(long id);
+    Status findById(final long id);
+    Iterable<Status> findByIsSearchable(boolean isSearchable);
 }

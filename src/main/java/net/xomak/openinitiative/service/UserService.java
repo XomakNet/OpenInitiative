@@ -1,6 +1,7 @@
 package net.xomak.openinitiative.service;
 
 import net.xomak.openinitiative.exception.InternalErrorException;
+import net.xomak.openinitiative.exception.NotAuthorizedException;
 import net.xomak.openinitiative.model.User;
 import net.xomak.openinitiative.model.UserRole;
 import net.xomak.openinitiative.repository.UserRepository;
@@ -66,11 +67,25 @@ public class UserService {
         else return null;
     }
 
+    public boolean isAuthorized() {
+        if(getCurrentUser() != null) return true;
+        else return false;
+    }
+
+    public void assertIsAuthorized(String message) throws NotAuthorizedException {
+        if(!this.isAuthorized()) throw new NotAuthorizedException(message);
+    }
+
     @Transactional
     public void createUser(String name, String email, String password) throws InternalErrorException {
         UserRole role = roleRepository.findById(DEFAULT_ROLE_ID);
         User newUser = new User(name, email, role, this.hashPassword(password));
         userRepository.save(newUser);
+    }
+
+    public UserRole createRole(String name, boolean isAdministrator, boolean isResponcer) {
+        UserRole role = new UserRole("Пользователь", false, false);
+        return roleRepository.save(role);
     }
 
     public boolean isLoginExists(String login) {
@@ -80,9 +95,10 @@ public class UserService {
         else return false;
     }
 
-    @PostConstruct
-    private void createDefaultRole() {
-        UserRole role = new UserRole("Пользователь", false, false);
-        roleRepository.save(role);
+    public User getUserById(long id) {
+        return userRepository.findOne(id);
     }
+
+
+
 }

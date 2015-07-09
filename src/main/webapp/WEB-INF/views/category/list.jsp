@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container">
     <div class="row">
+        <c:url value="/category/new" var="createURL"/>
         <h1>Категории инициатив <a href="${createURL}" class="btn btn-success">Создать</a></h1>
     </div>
     <div class="row">
@@ -33,7 +34,6 @@
                     </td>
                 </tr>
             </c:forEach>
-            <c:url value="/category/new" var="createURL"/>
         </table>
     </div>
 </div>
