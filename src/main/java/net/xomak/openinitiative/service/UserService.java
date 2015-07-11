@@ -53,6 +53,7 @@ public class UserService {
     public boolean authByLoginAndPassword(String login, String password) throws InternalErrorException {
         User user = userRepository.findByLoginAndPasswordHash(login, hashPassword(password));
         if(user != null) {
+            user.getRole();
             sessions.getSession().setAttribute("user", user);
             return true;
         }
@@ -70,6 +71,10 @@ public class UserService {
     public boolean isAuthorized() {
         if(getCurrentUser() != null) return true;
         else return false;
+    }
+
+    public void logout() {
+        if(isAuthorized()) sessions.getSession().removeAttribute("user");
     }
 
     public void assertIsAuthorized(String message) throws NotAuthorizedException {

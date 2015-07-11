@@ -4,6 +4,7 @@ import net.xomak.openinitiative.model.*;
 import net.xomak.openinitiative.repository.InitiativeCategoryRepository;
 import net.xomak.openinitiative.repository.InitiativeRepository;
 import net.xomak.openinitiative.repository.StatusRepository;
+import net.xomak.openinitiative.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +32,9 @@ public class InitiativeService {
 
     @Autowired
     InitiativeCategoryRepository categories;
+
+    @Autowired
+    VoteRepository votes;
 
     public Iterable<InitiativeCategory> getAllCategories() {
         return categories.findAll();
@@ -102,7 +106,7 @@ public class InitiativeService {
     }
 
     public Page<Initiative> getInitiativesByKeyword(String keyword, int pageNumber) {
-        return initiatives.findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCase("%"+keyword+"%", "%"+keyword+"%", generatePageRequest(pageNumber));
+        return initiatives.findByNameLikeIgnoreCaseOrDescriptionLikeIgnoreCase("%" + keyword + "%", "%" + keyword + "%", generatePageRequest(pageNumber));
     }
 
     public Page<Initiative> getInitiativesByCategory(InitiativeCategory category, int pageNumber) {
@@ -122,5 +126,17 @@ public class InitiativeService {
         return categories.save(category);
     }
 
+    @Transactional
+    public void voteFor(Initiative initiative, User user, boolean voteFor) {
+        if(voteFor) initiatives.increaseVotesFor(initiative.getId());
+        else initiatives.increaseVotesAgainst(initiative.getId());
+        Vote vote = new Vote(initiative, user, voteFor);
+        votes.save(vote);
+    }
+
+
+    public Vote getUserVote(Initiative initiative, User user) {
+        return votes.findByUserAndInitiative(user, initiative);
+    }
 
 }

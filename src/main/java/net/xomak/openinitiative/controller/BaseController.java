@@ -30,6 +30,14 @@ public class BaseController  {
     @Autowired
     SessionHolder sessions;
 
+    public String getCurrentUrl(final HttpServletRequest request) {
+        String url = request.getRequestURL().toString();
+        if(request.getQueryString() != null) {
+            url += "?" + request.getQueryString();
+        }
+        return url;
+    }
+
     @ExceptionHandler(NotAuthorizedException.class)
     public RedirectView notAuthorizedExceptionHandler(final HttpServletRequest request, final NotAuthorizedException exception) {
         GenericMessage authMessage = new GenericMessage("Ошибка", exception.getMessage(), GenericMessage.MessageType.DANGER);
@@ -38,10 +46,7 @@ public class BaseController  {
         FlashMap outputFlashMap = RequestContextUtils.getOutputFlashMap(request);
         if (outputFlashMap != null){
             outputFlashMap.put("message", authMessage);
-            String returnURL = request.getRequestURL().toString();
-            if(request.getQueryString() != null) {
-                returnURL += "?" + request.getQueryString();
-            }
+            String returnURL = getCurrentUrl(request);
             outputFlashMap.put("returnURL", returnURL);
         }
         return rw;

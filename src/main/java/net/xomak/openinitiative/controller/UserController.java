@@ -53,6 +53,12 @@ public class UserController extends BaseController{
         }
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(Model model) {
+        userService.logout();
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public String userNewPage(Model model) {
         model.addAttribute("newUserForm", new NewUserForm());

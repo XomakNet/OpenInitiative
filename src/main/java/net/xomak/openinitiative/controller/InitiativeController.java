@@ -3,6 +3,7 @@ package net.xomak.openinitiative.controller;
 
 import net.xomak.openinitiative.exception.InternalErrorException;
 import net.xomak.openinitiative.exception.NotAuthorizedException;
+import net.xomak.openinitiative.exception.UserFriendlyException;
 import net.xomak.openinitiative.model.*;
 import net.xomak.openinitiative.model.form.NewInitiativeForm;
 import net.xomak.openinitiative.service.InitiativeService;
@@ -27,7 +28,7 @@ import java.util.Iterator;
 @RequestMapping("/initiatives")
 public class InitiativeController extends BaseController {
 
-    public static final long NEED_VOTES = 1000;
+    public static final int NEED_VOTES = 1000;
 
     @Autowired
     InitiativeService service;
@@ -168,6 +169,27 @@ public class InitiativeController extends BaseController {
         return "initiative/list";
     }
 
+    @RequestMapping("/{id}/vote/{votingType}")
+    public String initiativeVote(@PathVariable("id") final long id, @PathVariable("votingType") final String votingType, final Model model) throws UserFriendlyException {
+        userService.assertIsAuthorized("Для голосования вам необходимо авторизоваться.");
+        Initiative initiative = service.getInitiativeById(id);
+        if(service.getUserVote(initiative, getCurrentUser()) == null) {
+            boolean voteFor = false;
+            if (votingType.equals("for")) {
+                voteFor = true;
+            } else {
+                if (votingType.equals("against")) {
+                    voteFor = false;
+                } else {
+                    //TODO: 404
+                }
+            }
+            service.voteFor(initiative, getCurrentUser(), voteFor);
+        }
+        else throw new UserFriendlyException("Вы уже голосовали по данному вопросу.");
+        return "redirect:/initiatives/"+id;
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Transactional
     public String detailedView(@PathVariable("id") final long id, final Model model) {
@@ -181,13 +203,19 @@ public class InitiativeController extends BaseController {
                     iterator.next().getNewStatus();
         }
         //String statusHistory = String.valueOf(TransactionSynchronizationManager.isActualTransactionActive());
-        long totalVotes = initiative.getVotesFor()-initiative.getVotesAgainst();
-        long votesPercent = 0;
+        int totalVotes = initiative.getVotesFor()-initiative.getVotesAgainst();
+        int votesPercent = 0;
         if(totalVotes >= 0) {
-            votesPercent = totalVotes / NEED_VOTES;
+            votesPercent = (int)((double)totalVotes / (double)NEED_VOTES * 100);
         }
+        Vote vote = null;
+        if(userService.isAuthorized()) {
+            vote = service.getUserVote(initiative, getCurrentUser());
+        }
+
         model.addAttribute("votesLeft", NEED_VOTES-totalVotes);
         model.addAttribute("votesPercent", votesPercent);
+        model.addAttribute("userVote", vote);
         model.addAttribute("statusHistory", statusHistory2);
         model.addAttribute("initiative", initiative);
         return "initiative/detailedView";

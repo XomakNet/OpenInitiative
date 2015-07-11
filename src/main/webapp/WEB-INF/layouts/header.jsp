@@ -25,7 +25,8 @@
                         <div class="form-group">
                             <input type="password" name="password" placeholder="Пароль" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-success">Войти</button>
+                        <input type="hidden" name="returnURL" value=""/>
+                        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-user"></i></button>
                     </form>
                     <a href="${pageContext.request.contextPath}/user/new" class="btn btn-info navbar-btn">Регистрация</a>
 

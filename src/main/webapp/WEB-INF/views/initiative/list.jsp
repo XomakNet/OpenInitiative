@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--TODO: Replace to styles--%>
 <style>
     #statusesBox {
         margin-top: 15px;
@@ -69,7 +70,7 @@
 
                                 <div>
                                     <c:choose>
-                                        <c:when test="${initiative.votesFor-initiative.votesAgainst} < 0">
+                                        <c:when test="${(initiative.votesFor-initiative.votesAgainst) < 0}">
                                             <c:set var="votesClass" value="label-danger"/>
                                         </c:when>
                                         <c:otherwise>
@@ -88,7 +89,7 @@
                                             <c:set var="statusClass" value="label-default"/>
                                         </c:when>
                                         <c:otherwise>
-                                            <c:set var="votesClass" value="label-info"/>
+                                            <c:set var="statusClass" value="label-info"/>
                                         </c:otherwise>
                                     </c:choose>
                                     <span class="label ${statusClass}" id="initiativeStatus">

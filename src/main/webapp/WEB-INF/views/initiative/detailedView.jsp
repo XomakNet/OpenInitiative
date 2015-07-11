@@ -49,15 +49,35 @@
                         </div>
                     </div>
                     <div id="votesDetails">
+                        <c:url var="voteForURL" value="/initiatives/${initiative.id}/vote/for"/>
+                        <c:url var="voteAgainstURL" value="/initiatives/${initiative.id}/vote/against"/>
+                        <c:choose>
+                            <c:when test="${userVote == null}">
+
+                            </c:when>
+                            <c:when test="${userVote.votedFor}">
+                                <c:set var="voteForClass" value="disabled"/>
+                                <c:set var="voteAgainstClass" value="disabled"/>
+                                <c:set var="votedText" value="Вы проголосовали за"/>
+                            </c:when>
+                            <c:when test="${!userVote.votedFor}">
+                                <c:set var="voteForClass" value="disabled"/>
+                                <c:set var="voteAgainstClass" value="disabled"/>
+                                <c:set var="votedText" value="Вы проголосовали против"/>
+                            </c:when>
+                        </c:choose>
+
+
                         <div class="text-left">
                             <b>${initiative.votesFor}</b> за
-                            <a class="btn btn-success">Я за!</a>
+                            <a class="btn btn-success ${voteForClass}" href="${voteForURL}">Я за!</a>
                         </div><!--
                      --><div class="text-right">
                             <b>${initiative.votesAgainst}</b> против
-                            <a class="btn btn-danger">Я против!</a>
+                            <a class="btn btn-danger ${voteAgainstClass}" href="${voteAgainstURL}">Я против!</a>
                         </div>
                     </div>
+                    <div>${votedText}</div>
                 </div>
             </div>
             <div class="panel panel-default">
