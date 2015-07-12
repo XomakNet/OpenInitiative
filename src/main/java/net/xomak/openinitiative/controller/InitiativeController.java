@@ -3,6 +3,7 @@ package net.xomak.openinitiative.controller;
 
 import net.xomak.openinitiative.exception.InternalErrorException;
 import net.xomak.openinitiative.exception.NotAuthorizedException;
+import net.xomak.openinitiative.exception.NotFoundException;
 import net.xomak.openinitiative.exception.UserFriendlyException;
 import net.xomak.openinitiative.model.*;
 import net.xomak.openinitiative.model.form.NewInitiativeForm;
@@ -53,7 +54,7 @@ public class InitiativeController extends BaseController {
     public String initiativeSave(@Valid @ModelAttribute("initiative")NewInitiativeForm initiative, BindingResult br, Model model)  throws NotAuthorizedException  {
         userService.assertIsAuthorized("Для создания инициативы вы должны авторизоваться.");
         if(br.hasErrors()) {
-
+            //TODO: Proper validation
             Iterable<InitiativeCategory> categories = service.getActiveCategories();
             model.addAttribute("categories", categories);
             return "initiative/form";
@@ -66,48 +67,51 @@ public class InitiativeController extends BaseController {
     }
 
     @RequestMapping(value = {"/"})
-    public String browseAllInitiatives(final Model model) {
+    public String browseAllInitiatives(final Model model) throws NotFoundException {
         return browseAllInitiativesWithPage(1, model);
     }
 
     @RequestMapping(value = {"/pages/{pageId}"})
-    public String browseAllInitiativesWithPage(@PathVariable("pageId") final int pageId, final Model model) {
+    public String browseAllInitiativesWithPage(@PathVariable("pageId") final int pageId, final Model model) throws NotFoundException {
         model.addAttribute("title", "Все инициативы");
-        return listInitiatives(service.getAllInitiatives(pageId), "", model);
+        Page page = service.getAllInitiatives(pageId);
+        return listInitiatives(page, "", model);
     }
 
 
     @RequestMapping("/category/{categoryId}")
-    public String browseInitiativesByCategory(@PathVariable("categoryId") final long categoryId, final Model model) {
+    public String browseInitiativesByCategory(@PathVariable("categoryId") final long categoryId, final Model model) throws NotFoundException {
         return browseInitiativesByCategoryWithPage(categoryId, 1, model);
     }
 
     @RequestMapping("/category/{categoryId}/pages/{pageId}")
-    public String browseInitiativesByCategoryWithPage(@PathVariable("categoryId") final long categoryId, @PathVariable("pageId") final int pageId, final Model model) {
+    public String browseInitiativesByCategoryWithPage(@PathVariable("categoryId") final long categoryId, @PathVariable("pageId") final int pageId, final Model model) throws NotFoundException {
         InitiativeCategory category = service.getCategoryById(categoryId);
+        if(category == null) throw new NotFoundException();
         model.addAttribute("title", "Иницитиативы в категории "+category.getName());
         return listInitiatives(service.getInitiativesByCategory(category, pageId), "category/" + categoryId + "/", model);
     }
 
     @RequestMapping("/status/{statusId}")
-    public String browseInitiativesByStatus(@PathVariable("statusId") final long statusId, final Model model) {
+    public String browseInitiativesByStatus(@PathVariable("statusId") final long statusId, final Model model) throws NotFoundException {
         return browseInitiativesByStatusWithPage(statusId, 1, model);
     }
 
     @RequestMapping("/status/{statusId}/pages/{pageId}")
-    public String browseInitiativesByStatusWithPage(@PathVariable("statusId") final long statusId, @PathVariable("pageId") final int pageId, final Model model) {
+    public String browseInitiativesByStatusWithPage(@PathVariable("statusId") final long statusId, @PathVariable("pageId") final int pageId, final Model model) throws NotFoundException {
         Status status = service.getStatusById(statusId);
+        if(status == null) throw new NotFoundException();
         model.addAttribute("title", "Иницитиативы со статусом "+status.getName());
         return listInitiatives(service.getInitiativesByStatus(status, pageId), "status/" + statusId + "/", model);
     }
 
     @RequestMapping("/toprated")
-    public String browseTopRankedInitiatives(final Model model) {
+    public String browseTopRankedInitiatives(final Model model) throws NotFoundException {
         return browseTopRankedInitiativesWithPage(1, model);
     }
 
     @RequestMapping("/toprated/pages/{pageId}")
-    public String browseTopRankedInitiativesWithPage(@PathVariable("pageId") final int pageNumber, final Model model) {
+    public String browseTopRankedInitiativesWithPage(@PathVariable("pageId") final int pageNumber, final Model model) throws NotFoundException {
 
         model.addAttribute("title", "Наиболее поддерживаемые инициативы");
         return listInitiatives(service.getAllInitiativesOrderByRating(pageNumber), "toprated/", model);
@@ -127,7 +131,7 @@ public class InitiativeController extends BaseController {
     }
 
     @RequestMapping(value = "/search/{keyword}/pages/{pageNumber}", method = RequestMethod.GET)
-    public String browseInitiativesByKeyword(@PathVariable("keyword") String encodedKeyword, @PathVariable("pageNumber") int pageId, final Model model) throws InternalErrorException {
+    public String browseInitiativesByKeyword(@PathVariable("keyword") String encodedKeyword, @PathVariable("pageNumber") int pageId, final Model model) throws InternalErrorException, NotFoundException {
         try {
             String keyword = new String(Base64.getUrlDecoder().decode(encodedKeyword), "UTF-8");
             return listInitiatives(service.getInitiativesByKeyword(keyword, pageId), "search/"+encodedKeyword+"/", model);
@@ -141,7 +145,10 @@ public class InitiativeController extends BaseController {
 
 
     @Transactional
-    public String listInitiatives(final Page<Initiative> initiatives, final String filterUrlPrefix, final Model model) {
+    public String listInitiatives(final Page<Initiative> initiatives, final String filterUrlPrefix, final Model model) throws NotFoundException {
+        if(initiatives.getTotalPages() > 0 && initiatives.getNumberOfElements() == 0) {
+            throw new NotFoundException();
+        }
         model.addAttribute("filterUrlPrefix", filterUrlPrefix);
         int current = initiatives.getNumber() + 1;
         int begin = Math.max(1, current - 5);
@@ -173,6 +180,7 @@ public class InitiativeController extends BaseController {
     public String initiativeVote(@PathVariable("id") final long id, @PathVariable("votingType") final String votingType, final Model model) throws UserFriendlyException {
         userService.assertIsAuthorized("Для голосования вам необходимо авторизоваться.");
         Initiative initiative = service.getInitiativeById(id);
+        if(initiative == null) throw new NotFoundException();
         if(service.getUserVote(initiative, getCurrentUser()) == null) {
             boolean voteFor = false;
             if (votingType.equals("for")) {
@@ -181,7 +189,7 @@ public class InitiativeController extends BaseController {
                 if (votingType.equals("against")) {
                     voteFor = false;
                 } else {
-                    //TODO: 404
+                    throw new NotFoundException();
                 }
             }
             service.voteFor(initiative, getCurrentUser(), voteFor);
@@ -192,9 +200,10 @@ public class InitiativeController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Transactional
-    public String detailedView(@PathVariable("id") final long id, final Model model) {
+    public String detailedView(@PathVariable("id") final long id, final Model model) throws NotFoundException {
 
         Initiative initiative = service.getInitiativeById(id);
+        if(initiative == null) throw new NotFoundException();
         Collection<StatusHistoryItem> statusHistory2 = initiative.getStatusHistory();
         Iterator<StatusHistoryItem> iterator = statusHistory2.iterator();
         String statusHistory = "";

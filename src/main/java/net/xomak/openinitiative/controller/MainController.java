@@ -1,5 +1,6 @@
 package net.xomak.openinitiative.controller;
 
+import net.xomak.openinitiative.exception.UserFriendlyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController extends BaseController {
     @RequestMapping("/")
-    public String mainPage() {
+    public String mainPage() throws UserFriendlyException {
         return "redirect:/initiatives/";
     }
 }
